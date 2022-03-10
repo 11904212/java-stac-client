@@ -24,6 +24,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <geotools.version>26.3</geotools.version>
+        <org.json.version>20211205</org.json.version>
     </properties>
 
     <!-- configuration for GitHub Package Hosting -->
@@ -41,6 +42,12 @@
             <artifactId>gt-geojson</artifactId>
             <version>${geotools.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${org.json.version}</version>
+        </dependency>
+
     </dependencies>
 
 
