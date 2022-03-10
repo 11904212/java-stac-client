@@ -1,3 +1,5 @@
+package at.ac.tuwien.ba.stac.client;
+
 import com.sun.istack.internal.Nullable;
 import org.geotools.geojson.GeoJSON;
 
@@ -37,7 +39,7 @@ public interface Item {
 
     LocalDateTime getDateTime();
 
-    //List<Asset> getAssets();
+    //List<at.ac.tuwien.ba.Asset> getAssets();
 
     Asset getAsset(String key);
 
