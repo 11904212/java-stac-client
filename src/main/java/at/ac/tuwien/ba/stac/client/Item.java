@@ -1,6 +1,5 @@
 package at.ac.tuwien.ba.stac.client;
 
-import com.sun.istack.internal.Nullable;
 import org.geotools.geojson.GeoJSON;
 
 import java.time.LocalDateTime;
@@ -20,10 +19,8 @@ public interface Item {
 
     String getId();
 
-    @Nullable
     GeoJSON getGeometry();
 
-    @Nullable
     List<Double> getBbox();
 
     Properties getProperties();

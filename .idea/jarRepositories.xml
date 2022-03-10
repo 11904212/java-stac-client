@@ -22,6 +22,11 @@
       <option name="url" value="https://maven.pkg.github.com/11904212/java-stac-client" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="osgeo-snapshot" />
+      <option name="name" value="OSGeo Snapshot Repository" />
+      <option name="url" value="https://repo.osgeo.org/repository/snapshot/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="central" />
       <option name="url" value="https://repo1.maven.org/maven2" />
