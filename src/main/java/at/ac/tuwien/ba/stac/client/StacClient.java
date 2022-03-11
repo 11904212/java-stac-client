@@ -1,6 +1,9 @@
 package at.ac.tuwien.ba.stac.client;
 
 import at.ac.tuwien.ba.stac.client.Impl.CatalogImpl;
+import at.ac.tuwien.ba.stac.client.Impl.CollectionImpl;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.geotools.geojson.GeoJSON;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -31,6 +34,21 @@ public class StacClient {
         return new CatalogImpl(resJson);
     }
 
+    public static Collection getCollection(String uri) throws URISyntaxException, IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(uri))
+                .GET()
+                .build();
+
+        HttpClient client = HttpClient.newHttpClient();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        JsonObject jobject = JsonParser.parseString(response.body()).getAsJsonObject();
+
+        return new CollectionImpl(jobject);
+    }
+
     public static void main(String[] args) {
         try {
             Catalog catalog = open("https://planetarycomputer.microsoft.com/api/stac/v1/");
@@ -44,6 +62,15 @@ public class StacClient {
             System.out.println(catalog.getDescription());
             System.out.println(catalog.getLinks());
         } catch (IOException | InterruptedException | URISyntaxException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Collection collection = getCollection("https://planetarycomputer.microsoft.com/api/stac/v1/collections/sentinel-2-l2a");
+            System.out.println(collection.getType());
+            System.out.println(collection.getStacVersion());
+            System.out.println(collection.getStacExtensions());
+        } catch (URISyntaxException | IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

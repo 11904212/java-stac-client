@@ -11,7 +11,7 @@ public interface Provider {
 
     Optional<String> getDescription();
 
-    Optional<List<String>> getRoles();
+    List<String> getRoles();
 
     Optional<String> getURL();
 

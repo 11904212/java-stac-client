@@ -19,7 +19,12 @@ public interface Item {
 
     String getId();
 
-    GeoJSON getGeometry();
+    /**
+     * this field is requiered by the spec.
+     * however since the spec allows to return null, this methode is changed to optional.
+     * @return an optional of GesJson
+     */
+    Optional<GeoJSON> getGeometry();
 
     List<Double> getBbox();
 
