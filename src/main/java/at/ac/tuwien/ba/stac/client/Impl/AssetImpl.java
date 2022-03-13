@@ -36,4 +36,9 @@ public class AssetImpl extends GsonWrapper implements Asset {
     public List<String> getRoles() {
         return this.getStringListByKey("roles");
     }
+
+    @Override
+    public String toString() {
+        return String.format("AssetImpl{href: %s}", this.getHref());
+    }
 }

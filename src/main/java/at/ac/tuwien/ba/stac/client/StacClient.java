@@ -70,6 +70,7 @@ public class StacClient {
             System.out.println(collection.getType());
             System.out.println(collection.getStacVersion());
             System.out.println(collection.getStacExtensions());
+            System.out.println(collection.getAssets());
         } catch (URISyntaxException | IOException | InterruptedException e) {
             e.printStackTrace();
         }
