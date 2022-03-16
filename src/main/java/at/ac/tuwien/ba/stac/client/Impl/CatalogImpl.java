@@ -4,68 +4,103 @@ import at.ac.tuwien.ba.stac.client.Catalog;
 import at.ac.tuwien.ba.stac.client.Collection;
 import at.ac.tuwien.ba.stac.client.Item;
 import at.ac.tuwien.ba.stac.client.Link;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public class CatalogImpl implements Catalog {
 
-    private final JSONObject content;
+    private final String type;
+    private final String stacVersion;
+    private List<String> stacExtensions = new ArrayList<>();
+    private final String id;
+    private String title;
+    private final String description;
+    private final List<Link> links;
 
-    public CatalogImpl(JSONObject content) {
-        this.content = content;
+    private final Map<String, Object> unknownProperties = new HashMap<>();
+
+
+    @JsonCreator
+    public CatalogImpl(
+            @JsonProperty("type") String type,
+            @JsonProperty("stac_version") String stacVersion,
+            @JsonProperty("id") String id,
+            @JsonProperty("description") String description,
+            @JsonProperty("links") @JsonDeserialize(contentAs= LinkImpl.class) List<Link> links
+    ) {
+        this.type = type;
+        this.stacVersion = stacVersion;
+        this.id = id;
+        this.description = description;
+        this.links = links;
+    }
+
+    @JsonSetter("stac_extensions")
+    public void setStacExtensions(List<String> stacExtensions) {
+        this.stacExtensions = stacExtensions;
+    }
+
+    @JsonSetter("title")
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @JsonAnySetter
+    public void addUnknownProperty(String key, Object value) {
+        this.unknownProperties.put(key, value);
+    }
+
+    public Optional<Object> getUnknownProperty(String key) {
+        return this.unknownProperties.containsKey(key) ? Optional.of(this.unknownProperties.get(key)) : Optional.empty();
+    }
+
+    public Set<String> getUnknownPropertiesKey() {
+        return this.unknownProperties.keySet();
     }
 
     @Override
     public String getType() {
-        return (String) content.get("type");
+        return this.type;
     }
 
     @Override
     public String getStacVersion() {
-        return (String) content.get("stac_version");
+        return this.stacVersion;
     }
 
     @Override
     public List<String> getStacExtensions() {
-        String key = "stac_extensions";
-        List<String> res = new ArrayList<>();
-        if(content.containsKey(key)) {
-            JSONArray extensionsArr = (JSONArray) content.get(key);
-            extensionsArr.forEach(extension -> res.add((String) extension));
-        }
-        return res;
+        return this.stacExtensions;
     }
 
     @Override
     public String getId() {
-        return (String) content.get("id");
+        return this.id;
     }
 
     @Override
     public Optional<String> getTitle() {
-        String key = "title";
-        if (content.containsKey(key)) {
-            return Optional.of((String) content.get(key));
-        }
-        return Optional.empty();
+        return this.title != null ? Optional.of(this.title) : Optional.empty();
     }
 
     @Override
     public String getDescription() {
-        return (String) content.get("description");
+        return this.description;
     }
 
     @Override
     public List<Link> getLinks() {
-        String key = "links";
-        List<Link> res = new ArrayList<>();
-        JSONArray linksArr = (JSONArray) content.get(key);
-        linksArr.forEach(link -> res.add(new LinkImpl((JSONObject) link)));
-        return res;
+        return this.links;
     }
 
     @Override
@@ -90,6 +125,7 @@ public class CatalogImpl implements Catalog {
 
     @Override
     public String toString() {
-        return String.format("Catalog{%s}",this.getId());
+        return String.format("CollectionImpl{%s}",this.getId());
     }
+
 }
