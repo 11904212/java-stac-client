@@ -3,7 +3,6 @@ package at.ac.tuwien.ba.stac.client.Impl;
 import at.ac.tuwien.ba.stac.client.Link;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.util.Optional;
 
@@ -11,25 +10,19 @@ public class LinkImpl implements Link {
 
     private final String href;
     private final String rel;
-    private String type;
-    private String title;
+    private final String type;
+    private final String title;
 
     @JsonCreator
     public LinkImpl(
             @JsonProperty("href") String href,
-            @JsonProperty("rel") String rel
+            @JsonProperty("rel") String rel,
+            @JsonProperty("type") String type,
+            @JsonProperty("title") String title
     ) {
         this.href = href;
         this.rel = rel;
-    }
-
-    @JsonSetter("type")
-    public void setType(String type) {
         this.type = type;
-    }
-
-    @JsonSetter("title")
-    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -45,12 +38,12 @@ public class LinkImpl implements Link {
 
     @Override
     public Optional<String> getType() {
-        return this.type != null ? Optional.of(this.type) : Optional.empty();
+        return Optional.ofNullable(this.type);
     }
 
     @Override
     public Optional<String> getTitle() {
-        return this.title != null ? Optional.of(this.title) : Optional.empty();
+        return Optional.ofNullable(this.title);
     }
 
     @Override

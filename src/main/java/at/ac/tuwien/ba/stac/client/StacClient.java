@@ -1,6 +1,7 @@
 package at.ac.tuwien.ba.stac.client;
 
 import at.ac.tuwien.ba.stac.client.Impl.CatalogImpl;
+import at.ac.tuwien.ba.stac.client.Impl.CollectionImpl;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -9,18 +10,29 @@ import java.net.URL;
 
 public class StacClient {
 
-    static public Catalog open(String uri) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper()
+    private final ObjectMapper mapper;
+
+    public StacClient () {
+        this.mapper = new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+
+    public Catalog open(String uri) throws IOException {
         URL url = new URL(uri);
-        return objectMapper.readValue(url, CatalogImpl.class);
-        
+        return mapper.readValue(url, CatalogImpl.class);
+    }
+
+    public Collection getCollection(String uri) throws IOException {
+        URL url = new URL(uri);
+        return mapper.readValue(url, CollectionImpl.class);
     }
 
     public static void main(String[] args) {
 
-        try {
-            Catalog catalog = open("https://planetarycomputer.microsoft.com/api/stac/v1/");
+        StacClient client = new StacClient();
+
+/*        try {
+            Catalog catalog = client.open("https://planetarycomputer.microsoft.com/api/stac/v1/");
 
             System.out.println(catalog);
             System.out.println(catalog.getType());
@@ -30,6 +42,17 @@ public class StacClient {
             System.out.println(catalog.getTitle());
             System.out.println(catalog.getDescription());
             System.out.println(catalog.getLinks());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+
+        try {
+            Collection collection = client.getCollection("https://planetarycomputer.microsoft.com/api/stac/v1/collections/sentinel-2-l2a");
+            System.out.println(collection.getType());
+            System.out.println(collection.getStacVersion());
+            System.out.println(collection.getStacExtensions());
+            System.out.println(collection.getAssets());
         } catch (IOException e) {
             e.printStackTrace();
         }
