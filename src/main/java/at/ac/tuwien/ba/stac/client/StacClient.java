@@ -30,9 +30,11 @@ public class StacClient {
     public static void main(String[] args) {
 
         StacClient client = new StacClient();
+        Catalog catalog;
+        Collection collection;
 
-/*        try {
-            Catalog catalog = client.open("https://planetarycomputer.microsoft.com/api/stac/v1/");
+        try {
+            catalog = client.open("https://planetarycomputer.microsoft.com/api/stac/v1/");
 
             System.out.println(catalog);
             System.out.println(catalog.getType());
@@ -44,11 +46,11 @@ public class StacClient {
             System.out.println(catalog.getLinks());
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
 
         try {
-            Collection collection = client.getCollection("https://planetarycomputer.microsoft.com/api/stac/v1/collections/sentinel-2-l2a");
+            collection = client.getCollection("https://planetarycomputer.microsoft.com/api/stac/v1/collections/sentinel-2-l2a");
             System.out.println(collection.getType());
             System.out.println(collection.getStacVersion());
             System.out.println(collection.getStacExtensions());

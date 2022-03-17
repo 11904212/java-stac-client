@@ -4,12 +4,11 @@ import at.ac.tuwien.ba.stac.client.Provider;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class ProviderImpl extends NonStacProperties implements Provider {
+public class ProviderImpl implements Provider {
 
     private final String name;
     private final String description;
