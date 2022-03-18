@@ -2,6 +2,7 @@ package at.ac.tuwien.ba.stac.client;
 
 import at.ac.tuwien.ba.stac.client.Impl.CatalogImpl;
 import at.ac.tuwien.ba.stac.client.Impl.CollectionImpl;
+import at.ac.tuwien.ba.stac.client.Impl.ItemImpl;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,15 +28,21 @@ public class StacClient {
         return mapper.readValue(url, CollectionImpl.class);
     }
 
+    public Item getItem(String uri) throws IOException {
+        URL url = new URL(uri);
+        return mapper.readValue(url, ItemImpl.class);
+    }
+
     public static void main(String[] args) {
 
         StacClient client = new StacClient();
         Catalog catalog;
         Collection collection;
+        Item item;
+
 
         try {
             catalog = client.open("https://planetarycomputer.microsoft.com/api/stac/v1/");
-
             System.out.println(catalog);
             System.out.println(catalog.getType());
             System.out.println(catalog.getStacVersion());
@@ -44,19 +51,20 @@ public class StacClient {
             System.out.println(catalog.getTitle());
             System.out.println(catalog.getDescription());
             System.out.println(catalog.getLinks());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
 
-        try {
             collection = client.getCollection("https://planetarycomputer.microsoft.com/api/stac/v1/collections/sentinel-2-l2a");
             System.out.println(collection.getType());
             System.out.println(collection.getStacVersion());
             System.out.println(collection.getStacExtensions());
             System.out.println(collection.getAssets());
+
+            item = client.getItem("https://planetarycomputer.microsoft.com/api/stac/v1/collections/sentinel-2-l2a/items/S2B_MSIL2A_20220318T080649_R078_T42XWH_20220318T120719");
+            System.out.println(item);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 }

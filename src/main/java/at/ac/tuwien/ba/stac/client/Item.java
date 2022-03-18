@@ -1,6 +1,6 @@
 package at.ac.tuwien.ba.stac.client;
 
-import org.geotools.geojson.GeoJSON;
+import mil.nga.sf.geojson.Geometry;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,16 +19,11 @@ public interface Item {
 
     String getId();
 
-    /**
-     * this field is requiered by the spec.
-     * however since the spec allows to return null, this methode is changed to optional.
-     * @return an optional of GesJson
-     */
-    Optional<GeoJSON> getGeometry();
+    Geometry getGeometry();
 
-    List<Double> getBbox();
+    double[] getBbox();
 
-    Properties getProperties();
+    Map<String, Object> getProperties();
 
     List<Link> getLinks();
 

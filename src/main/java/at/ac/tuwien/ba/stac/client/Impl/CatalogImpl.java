@@ -106,7 +106,7 @@ public class CatalogImpl extends NonStacProperties implements Catalog {
 
     @Override
     public String toString() {
-        return String.format("CollectionImpl{%s}",this.getId());
+        return String.format("Collection{%s}",this.getId());
     }
 
 }
