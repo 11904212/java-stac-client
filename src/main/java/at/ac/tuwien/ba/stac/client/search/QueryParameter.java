@@ -1,4 +1,4 @@
-package at.ac.tuwien.ba.stac.client;
+package at.ac.tuwien.ba.stac.client.search;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import mil.nga.sf.geojson.GeoJsonObject;
@@ -15,9 +15,11 @@ public class QueryParameter {
     private GeoJsonObject intersects;
     private List<String> ids = new ArrayList<>();
     private List<String> collections = new ArrayList<>();
+    private List<SortBy> sortBy = new ArrayList<>();
 
     public QueryParameter() {
     }
+
 
     public Integer getLimit() {
         return limit;
@@ -75,5 +77,22 @@ public class QueryParameter {
 
     public void addCollection(String id) {
         this.collections.add(id);
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    public List<SortBy> getSortBy() {
+        return sortBy;
+    }
+
+    public void setSortBy(List<SortBy> sortBy) {
+        this.sortBy = sortBy;
+    }
+
+    public void addSortBy(SortBy sortby) {
+        this.sortBy.add(sortby);
+    }
+
+    public void addSortBy(String field, SortDirection direction) {
+        this.sortBy.add(new SortBy(field, direction));
     }
 }

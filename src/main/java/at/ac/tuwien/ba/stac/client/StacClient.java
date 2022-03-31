@@ -4,6 +4,8 @@ import at.ac.tuwien.ba.stac.client.Impl.CatalogImpl;
 import at.ac.tuwien.ba.stac.client.Impl.CollectionImpl;
 import at.ac.tuwien.ba.stac.client.Impl.ItemCollectionImpl;
 import at.ac.tuwien.ba.stac.client.Impl.ItemImpl;
+import at.ac.tuwien.ba.stac.client.search.QueryParameter;
+import at.ac.tuwien.ba.stac.client.search.SortDirection;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mil.nga.sf.geojson.FeatureCollection;
@@ -65,6 +67,7 @@ public class StacClient {
 
         try {
             URL stacEndpoint = new URL("https://planetarycomputer.microsoft.com/api/stac/v1/");
+            //URL stacEndpoint = new URL("https://sentinel-stac.s3.amazonaws.com/catalog.json");
             StacClient client = new StacClient(stacEndpoint);
             Catalog catalog;
             Collection collection;
@@ -151,6 +154,8 @@ public class StacClient {
             queryParameter.setIntersects(
                     featureCollection.getFeature(0).getGeometry()
             );
+
+            queryParameter.addSortBy("datetime", SortDirection.DESC);
 
             ItemCollection searchRes = client.search(queryParameter);
             for (Item itemRes : searchRes.getItems()){
