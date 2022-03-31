@@ -139,11 +139,6 @@ public class CollectionImpl implements Collection {
     }
 
     @Override
-    public List<Item> getItems() {
-        return null;
-    }
-
-    @Override
     public String toString() {
         return String.format("CollectionImpl{%s}",this.getId());
     }

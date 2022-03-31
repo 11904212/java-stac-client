@@ -82,13 +82,13 @@ public class ItemImpl extends Feature implements Item {
     }
 
     @Override
-    public LocalDateTime getDateTime() {
-        return null;
+    public Optional<String> getDateTime() {
+        return Optional.ofNullable((String) this.getProperties().get("datetime"));
     }
 
     @Override
-    public Asset getAsset(String key) {
-        return null;
+    public Optional<Asset> getAsset(String key) {
+        return Optional.ofNullable(this.assets.get(key));
     }
 
     @Override

@@ -2,7 +2,6 @@ package at.ac.tuwien.ba.stac.client;
 
 import mil.nga.sf.geojson.Geometry;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -34,10 +33,10 @@ public interface Item {
 
     /** convenience methods **/
 
-    LocalDateTime getDateTime();
+    Optional<String> getDateTime();
 
     //List<at.ac.tuwien.ba.Asset> getAssets();
 
-    Asset getAsset(String key);
+    Optional<Asset> getAsset(String key);
 
 }

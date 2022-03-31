@@ -85,26 +85,6 @@ public class CatalogImpl extends NonStacProperties implements Catalog {
     }
 
     @Override
-    public Collection getCollection(String collectionId) {
-        return null;
-    }
-
-    @Override
-    public List<Collection> getCollections() {
-        return null;
-    }
-
-    @Override
-    public List<Item> getItems() {
-        return null;
-    }
-
-    @Override
-    public List<Item> getAllItems() {
-        return null;
-    }
-
-    @Override
     public String toString() {
         return String.format("Collection{%s}",this.getId());
     }

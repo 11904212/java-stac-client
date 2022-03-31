@@ -34,8 +34,4 @@ public interface Collection {
 
     Map<String, Asset> getAssets();
 
-    /** convenience methods **/
-
-    List<Item> getItems();
-
 }

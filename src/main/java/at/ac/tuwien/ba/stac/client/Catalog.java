@@ -21,14 +21,4 @@ public interface Catalog {
 
     List<Link> getLinks();
 
-    /** convenience methods **/
-
-    Collection getCollection(String collectionId);
-
-    List<Collection> getCollections();
-
-    List<Item> getItems();
-
-    List<Item> getAllItems();
-
 }
