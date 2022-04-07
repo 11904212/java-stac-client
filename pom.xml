@@ -75,6 +75,13 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>mil.nga.sf</groupId>
+            <artifactId>sf-wkt</artifactId>
+            <version>1.0.2</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 
