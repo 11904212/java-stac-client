@@ -8,7 +8,6 @@ import java.util.List;
 
 public class SpatialExtentImpl implements SpatialExtent {
 
-    //TODO mapping via jackson not working
     private final List<List<Double>> bbox;
 
     @JsonCreator

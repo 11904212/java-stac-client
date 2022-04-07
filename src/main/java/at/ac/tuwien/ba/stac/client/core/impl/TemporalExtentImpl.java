@@ -9,7 +9,6 @@ import java.util.List;
 public class TemporalExtentImpl implements TemporalExtent {
 
 
-    //TODO mapping via jackson not working
     private final List<List<String>> interval;
 
     @JsonCreator

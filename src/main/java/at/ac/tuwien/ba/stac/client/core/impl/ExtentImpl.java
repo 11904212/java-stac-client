@@ -17,8 +17,8 @@ public class ExtentImpl implements Extent {
             @JsonProperty("spatial") @JsonDeserialize(as = SpatialExtentImpl.class) SpatialExtent spatial,
             @JsonProperty("temporal") @JsonDeserialize(as = TemporalExtentImpl.class) TemporalExtent temporal
     ) {
-        this.spatial = null;
-        this.temporal = null;
+        this.spatial = spatial;
+        this.temporal = temporal;
     }
 
     @Override
