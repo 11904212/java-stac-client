@@ -1,8 +1,10 @@
-package at.ac.tuwien.ba.stac.client.Impl;
+package at.ac.tuwien.ba.stac.client.search.impl;
 
-import at.ac.tuwien.ba.stac.client.Item;
-import at.ac.tuwien.ba.stac.client.ItemCollection;
-import at.ac.tuwien.ba.stac.client.Link;
+import at.ac.tuwien.ba.stac.client.core.impl.ItemImpl;
+import at.ac.tuwien.ba.stac.client.core.impl.LinkImpl;
+import at.ac.tuwien.ba.stac.client.core.Item;
+import at.ac.tuwien.ba.stac.client.core.Link;
+import at.ac.tuwien.ba.stac.client.search.ItemCollection;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

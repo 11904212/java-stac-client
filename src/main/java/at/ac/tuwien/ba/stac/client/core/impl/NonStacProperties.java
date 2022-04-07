@@ -1,4 +1,4 @@
-package at.ac.tuwien.ba.stac.client.Impl;
+package at.ac.tuwien.ba.stac.client.core.impl;
 
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 

@@ -1,4 +1,4 @@
-package at.ac.tuwien.ba.stac.client.search;
+package at.ac.tuwien.ba.stac.client.search.dto;
 
 public class SortBy {
     private final String field;

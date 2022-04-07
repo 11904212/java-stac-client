@@ -1,15 +1,14 @@
-package at.ac.tuwien.ba.stac.client.Impl;
+package at.ac.tuwien.ba.stac.client.core.impl;
 
-import at.ac.tuwien.ba.stac.client.Asset;
-import at.ac.tuwien.ba.stac.client.Item;
-import at.ac.tuwien.ba.stac.client.Link;
+import at.ac.tuwien.ba.stac.client.core.Asset;
+import at.ac.tuwien.ba.stac.client.core.Item;
+import at.ac.tuwien.ba.stac.client.core.Link;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import mil.nga.sf.geojson.Feature;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,7 @@
-package at.ac.tuwien.ba.stac.client;
+package at.ac.tuwien.ba.stac.client.search;
+
+import at.ac.tuwien.ba.stac.client.core.Item;
+import at.ac.tuwien.ba.stac.client.core.Link;
 
 import java.util.List;
 

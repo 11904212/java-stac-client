@@ -1,4 +1,4 @@
-package at.ac.tuwien.ba.stac.client.search;
+package at.ac.tuwien.ba.stac.client.search.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import mil.nga.sf.geojson.GeoJsonObject;

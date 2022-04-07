@@ -1,10 +1,9 @@
-package at.ac.tuwien.ba.stac.client;
+package at.ac.tuwien.ba.stac.client.core;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-public interface Collection {
+public interface Catalog {
 
     /** according to specification **/
 
@@ -20,18 +19,6 @@ public interface Collection {
 
     String getDescription();
 
-    List<String> getKeywords();
-
-    String getLicense();
-
-    List<Provider> getProviders();
-
-    Extent getExtend();
-
-    //TODO: summaries
-
     List<Link> getLinks();
-
-    Map<String, Asset> getAssets();
 
 }

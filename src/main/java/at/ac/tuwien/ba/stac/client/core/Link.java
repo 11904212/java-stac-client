@@ -1,4 +1,4 @@
-package at.ac.tuwien.ba.stac.client;
+package at.ac.tuwien.ba.stac.client.core;
 
 import java.util.Optional;
 

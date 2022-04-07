@@ -1,6 +1,6 @@
-package at.ac.tuwien.ba.stac.client.Impl;
+package at.ac.tuwien.ba.stac.client.core.impl;
 
-import at.ac.tuwien.ba.stac.client.Asset;
+import at.ac.tuwien.ba.stac.client.core.Asset;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

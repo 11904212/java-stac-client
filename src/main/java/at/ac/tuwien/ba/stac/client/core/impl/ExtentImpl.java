@@ -1,8 +1,8 @@
-package at.ac.tuwien.ba.stac.client.Impl;
+package at.ac.tuwien.ba.stac.client.core.impl;
 
-import at.ac.tuwien.ba.stac.client.Extent;
-import at.ac.tuwien.ba.stac.client.SpatialExtent;
-import at.ac.tuwien.ba.stac.client.TemporalExtent;
+import at.ac.tuwien.ba.stac.client.core.Extent;
+import at.ac.tuwien.ba.stac.client.core.SpatialExtent;
+import at.ac.tuwien.ba.stac.client.core.TemporalExtent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
