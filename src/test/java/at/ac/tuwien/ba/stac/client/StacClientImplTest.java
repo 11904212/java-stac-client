@@ -5,6 +5,7 @@ import at.ac.tuwien.ba.stac.client.core.Collection;
 import at.ac.tuwien.ba.stac.client.core.Item;
 import at.ac.tuwien.ba.stac.client.impl.StacClientImpl;
 import at.ac.tuwien.ba.stac.client.search.ItemCollection;
+import at.ac.tuwien.ba.stac.client.search.dto.QueryParamFields;
 import at.ac.tuwien.ba.stac.client.search.dto.QueryParameter;
 import at.ac.tuwien.ba.stac.client.search.dto.SortDirection;
 import mil.nga.sf.geojson.FeatureConverter;
@@ -74,7 +75,25 @@ public class StacClientImplTest {
         ItemCollection res = testClient.search(queryParameter);
 
         assertThat(res.getType()).isEqualTo("FeatureCollection");
-        assertThat(res.getItems().size()).isEqualTo(2);
+        assertThat(res.getItems()).hasSize(2);
+
+    }
+
+
+    @Test
+    public void searchItem_withFieldsParam_shouldContainFields() throws Exception {
+
+        var queryParameter = new QueryParameter();
+        queryParameter.addId(ITEM_ID);
+        var fieldsParam = new QueryParamFields();
+        fieldsParam.addFieldToExclude("properties.datetime");
+        queryParameter.setFields(fieldsParam);
+
+        ItemCollection res = testClient.search(queryParameter);
+
+        var cloudCover = res.getItems().get(0).getProperties().get("datetime");
+
+        assertThat(cloudCover).isNull();
 
     }
 }
