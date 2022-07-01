@@ -3,11 +3,20 @@ package at.ac.tuwien.ba.stac.client.search.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import mil.nga.sf.geojson.GeoJsonObject;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * this class is a POJO containing all the possible parameter for a STAC search.
+ * see https://api.stacspec.org/v1.0.0-rc.1/item-search/#operation/getItemSearch
+ * for detailed information.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class QueryParameter {
+
+    private static final DateTimeFormatter DEFAULT_DATE_FORMAT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
     private Integer limit;
     private Double[] bbox;
@@ -16,9 +25,7 @@ public class QueryParameter {
     private List<String> ids = new ArrayList<>();
     private List<String> collections = new ArrayList<>();
     private List<SortBy> sortBy = new ArrayList<>();
-
-    public QueryParameter() {
-    }
+    private QueryParamFields fields;
 
 
     public Integer getLimit() {
@@ -41,8 +48,38 @@ public class QueryParameter {
         return datetime;
     }
 
+    /**
+     * set the datetime directly. note formatting as specified in the STAC-API.
+     * @param datetime as String. will not be verified.
+     */
     public void setDatetime(String datetime) {
         this.datetime = datetime;
+    }
+
+    /**
+     * set the exact datetime
+     * @param datetime as {@link ZonedDateTime}
+     */
+    public void setDatetime(ZonedDateTime datetime) {
+        this.datetime = datetime.format(DEFAULT_DATE_FORMAT);
+    }
+
+    /**
+     * set an open or closed interval
+     * @param start as {@link ZonedDateTime}, set to null for an open interval
+     * @param end as {@link ZonedDateTime}, set to null for an open interval
+     * @throws IllegalArgumentException if start and end are null, or start is after end.
+     */
+    public void setDatetimeInterval(ZonedDateTime start, ZonedDateTime end) {
+        if (start == null && end == null) {
+            throw new IllegalArgumentException("at least one datetime must be specified. please specify start and/or end.");
+        }
+        if (start != null && end != null && start.isAfter(end)) {
+            throw new IllegalArgumentException("start date must be before the end date.");
+        }
+        String startStr = start != null ? start.format(DEFAULT_DATE_FORMAT) : "..";
+        String endStr = end != null ? end.format(DEFAULT_DATE_FORMAT) : "..";
+        this.datetime = startStr + "/" + endStr;
     }
 
     public GeoJsonObject getIntersects() {
@@ -94,5 +131,13 @@ public class QueryParameter {
 
     public void addSortBy(String field, SortDirection direction) {
         this.sortBy.add(new SortBy(field, direction));
+    }
+
+    public QueryParamFields getFields() {
+        return fields;
+    }
+
+    public void setFields(QueryParamFields fields) {
+        this.fields = fields;
     }
 }
