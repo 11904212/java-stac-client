@@ -4,7 +4,6 @@ import at.ac.tuwien.ba.stac.client.StacClient;
 import at.ac.tuwien.ba.stac.client.core.Catalog;
 import at.ac.tuwien.ba.stac.client.core.Collection;
 import at.ac.tuwien.ba.stac.client.core.Item;
-import at.ac.tuwien.ba.stac.client.impl.StacClientImpl;
 import at.ac.tuwien.ba.stac.client.search.ItemCollection;
 import at.ac.tuwien.ba.stac.client.search.dto.QueryParamFields;
 import at.ac.tuwien.ba.stac.client.search.dto.QueryParameter;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Disabled("use this only for manual testing")
-public class StacClientImplTest {
+class StacClientImplTest {
 
     private static final String TEST_URL_MSPC = "https://planetarycomputer.microsoft.com/api/stac/v1/";
     private static final String TEST_URL_AWS = "https://earth-search.aws.element84.com/v0/";
@@ -43,7 +42,7 @@ public class StacClientImplTest {
     }
 
     @Test
-    public void getCatalog_shouldReturnCatalog() throws Exception {
+    void getCatalog_shouldReturnCatalog() throws Exception {
         Catalog res = this.testClient.getCatalog();
         assertThat(res.getType()).isEqualTo("Catalog");
         assertThat(res.getId()).isEqualTo("microsoft-pc");
@@ -51,21 +50,21 @@ public class StacClientImplTest {
     }
 
     @Test
-    public void getCollection_shouldReturnCollection() throws Exception {
+    void getCollection_shouldReturnCollection() throws Exception {
         Collection res = this.testClient.getCollection(COLLECTION_ID);
         assertThat(res.getId()).isEqualTo(COLLECTION_ID);
         assertThat(res.getType()).isEqualTo("Collection");
     }
 
     @Test
-    public void getItem_shouldReturnItem() throws Exception {
+    void getItem_shouldReturnItem() throws Exception {
         Item res = this.testClient.getItem(COLLECTION_ID, ITEM_ID);
         assertThat(res.getId()).isEqualTo(ITEM_ID);
         assertThat(res.getType()).isEqualTo("Feature");
     }
 
     @Test
-    public void searchItem_shouldReturnItemCollection() throws Exception {
+    void searchItem_shouldReturnItemCollection() throws Exception {
 
         QueryParameter queryParameter = new QueryParameter();
         queryParameter.addCollection(COLLECTION_ID);
@@ -87,7 +86,7 @@ public class StacClientImplTest {
 
 
     @Test
-    public void searchItem_withFieldsParam_shouldContainFields() throws Exception {
+    void searchItem_withFieldsParam_shouldContainFields() throws Exception {
 
         var queryParameter = new QueryParameter();
         queryParameter.addId(ITEM_ID);
@@ -104,7 +103,7 @@ public class StacClientImplTest {
     }
 
     @Test
-    public void searchItem_withSortBy_shouldSortItems() throws Exception {
+    void searchItem_withSortBy_shouldSortItems() throws Exception {
 
         // planetarycomputer seems to have a problem with the sorting,
         // as it returns the following list: ..., 89.252603, 9.008443, 94.83971, ...
