@@ -1,7 +1,6 @@
-package at.ac.tuwien.ba.stac.client;
+package at.ac.tuwien.ba.stac.client.core.impl;
 
 import at.ac.tuwien.ba.stac.client.core.Catalog;
-import at.ac.tuwien.ba.stac.client.core.impl.CatalogImpl;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +10,7 @@ import java.net.URL;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CatalogImplTest {
+class CatalogImplTest {
 
     private ObjectMapper mapper;
 
@@ -22,13 +21,13 @@ public class CatalogImplTest {
     }
 
     @Test
-    public void itShouldDeserializeCatalog() throws Exception{
+    void itShouldDeserializeCatalog() throws Exception{
         URL url = ClassLoader.getSystemResource("examples/catalog.json");
         Catalog res = mapper.readValue(url, CatalogImpl.class);
         assertThat(res.getId()).isEqualTo("examples");
         assertThat(res.getType()).isEqualTo("Catalog");
         assertThat(res.getStacVersion()).isEqualTo("1.0.0");
         assertThat(res.getDescription()).isEqualTo("This catalog is a simple demonstration of an example catalog that is used to organize a hierarchy of collections and their items.");
-        assertThat(res.getLinks().size()).isEqualTo(6);
+        assertThat(res.getLinks()).hasSize(6);
     }
 }

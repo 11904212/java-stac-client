@@ -1,6 +1,7 @@
 package at.ac.tuwien.ba.stac.client.search.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import mil.nga.sf.geojson.GeoJsonObject;
 
 import java.time.ZonedDateTime;
@@ -28,6 +29,7 @@ public class QueryParameter {
     private QueryParamFields fields;
 
 
+    @JsonProperty("limit")
     public Integer getLimit() {
         return limit;
     }
@@ -36,6 +38,7 @@ public class QueryParameter {
         this.limit = limit;
     }
 
+    @JsonProperty("bbox")
     public Double[] getBbox() {
         return bbox;
     }
@@ -44,6 +47,7 @@ public class QueryParameter {
         this.bbox = bbox;
     }
 
+    @JsonProperty("datetime")
     public String getDatetime() {
         return datetime;
     }
@@ -82,6 +86,7 @@ public class QueryParameter {
         this.datetime = startStr + "/" + endStr;
     }
 
+    @JsonProperty("intersects")
     public GeoJsonObject getIntersects() {
         return intersects;
     }
@@ -90,6 +95,7 @@ public class QueryParameter {
         this.intersects = intersects;
     }
 
+    @JsonProperty("ids")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public List<String> getIds() {
         return ids;
@@ -103,6 +109,7 @@ public class QueryParameter {
         this.ids.add(id);
     }
 
+    @JsonProperty("collections")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public List<String> getCollections() {
         return collections;
@@ -116,6 +123,7 @@ public class QueryParameter {
         this.collections.add(id);
     }
 
+    @JsonProperty("sortby")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public List<SortBy> getSortBy() {
         return sortBy;
@@ -133,6 +141,7 @@ public class QueryParameter {
         this.sortBy.add(new SortBy(field, direction));
     }
 
+    @JsonProperty("fields")
     public QueryParamFields getFields() {
         return fields;
     }
