@@ -20,8 +20,10 @@ public class ItemImpl extends Feature implements Item {
 
     private final String stacVersion;
     private final List<String> stacExtensions;
-    private final List<Link> links;
-    private final Map<String, Asset> assets;
+    // Feature implements Serializable, this object is not supposed to be serialized.
+    // if it is serialized anyway, the following fields should be ignored.
+    private final transient List<Link> links;
+    private final transient Map<String, Asset> assets;
     private final String collection;
 
     @JsonCreator
