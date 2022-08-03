@@ -12,7 +12,7 @@ public class SpatialExtentImpl implements SpatialExtent {
 
     @JsonCreator
     public SpatialExtentImpl(
-            @JsonProperty("bbox") List<List<Double>> bbox
+            @JsonProperty(value = "bbox", required = true) List<List<Double>> bbox
     ) {
         this.bbox = bbox;
     }

@@ -4,7 +4,9 @@ import at.ac.tuwien.ba.stac.client.core.TemporalExtent;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class TemporalExtentImpl implements TemporalExtent {
 
@@ -15,7 +17,7 @@ public class TemporalExtentImpl implements TemporalExtent {
     public TemporalExtentImpl(
             @JsonProperty("interval") List<List<String>> interval
     ) {
-        this.interval = interval;
+        this.interval = Objects.requireNonNullElse(interval, Collections.emptyList());
     }
 
     @Override

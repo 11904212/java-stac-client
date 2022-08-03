@@ -18,7 +18,7 @@ public class AssetImpl extends NonStacProperties implements Asset {
 
     @JsonCreator
     public AssetImpl(
-            @JsonProperty("href") String href,
+            @JsonProperty(value = "href", required = true) String href,
             @JsonProperty("title") String title,
             @JsonProperty("description") String description,
             @JsonProperty("type") String type,
