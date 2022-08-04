@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class QueryParamFieldsTest {
+class QueryParamFieldsTest {
 
     private static final String TEMPLATE_JSON = "{\"include\":[%s],\"exclude\":[%s]}";
     private static final String TEMPLATE_URL_QUERY = "fields=%s";
@@ -25,7 +25,7 @@ public class QueryParamFieldsTest {
     }
 
     @Test
-    public void itShould_SerializeIncludeAndExclude() throws Exception{
+    void serialize_whenIncludeAndExcludeSet_expectCorrectJson() throws Exception{
 
         var fields = new QueryParamFields();
         fields.setInclude(INCLUDE_LIST);
@@ -42,7 +42,7 @@ public class QueryParamFieldsTest {
     }
 
     @Test
-    public void itShould_SerializeIncludeOnly() throws Exception{
+    void serialize_whenIncludeOnly_expectCorrectJson() throws Exception{
 
         var fields = new QueryParamFields();
         fields.setInclude(INCLUDE_LIST);
@@ -55,7 +55,7 @@ public class QueryParamFieldsTest {
     }
 
     @Test
-    public void itShould_SerializeExcludeOnly() throws Exception{
+    void serialize_whenExcludeOnly_expectCorrectJson() throws Exception{
 
         var fields = new QueryParamFields();
         fields.setExclude(EXCLUDE_LIST);
@@ -68,7 +68,7 @@ public class QueryParamFieldsTest {
     }
 
     @Test
-    public void itShould_SerializeUrlQuery() {
+    void toUrlQuery_whenIncludeAndExcludeSet_expectCorrectUrl() {
 
         var fields = new QueryParamFields();
         fields.setInclude(INCLUDE_LIST);
@@ -83,7 +83,7 @@ public class QueryParamFieldsTest {
     }
 
     @Test
-    public void itShould_SerializeUrlQueryIncludeOnly() {
+    void toUrlQuery_whenIncludeOnly_expectCorrectUrl() {
 
         var fields = new QueryParamFields();
         fields.setInclude(INCLUDE_LIST);
@@ -97,7 +97,7 @@ public class QueryParamFieldsTest {
     }
 
     @Test
-    public void itShould_SerializeUrlQueryExcludeOnly() {
+    void toUrlQuery_whenExcludeOnly_expectCorrectUrl() {
 
         var fields = new QueryParamFields();
         fields.setExclude(EXCLUDE_LIST);
@@ -111,7 +111,7 @@ public class QueryParamFieldsTest {
     }
 
     @Test
-    public void itShould_notContain_doubleNegation_inQueryUrl() {
+    void toUrlQuery_whenNegatedField_expectNoDoubleNegation() {
 
         var fields = new QueryParamFields();
         fields.addFieldToExclude("-not");
