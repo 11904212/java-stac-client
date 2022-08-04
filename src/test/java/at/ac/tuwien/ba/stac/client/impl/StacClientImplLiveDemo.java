@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,14 +52,18 @@ class StacClientImplLiveDemo {
 
     @Test
     void getCollection_shouldReturnCollection() throws Exception {
-        Collection res = this.testClient.getCollection(COLLECTION_ID);
+        Optional<Collection> optRes = this.testClient.getCollection(COLLECTION_ID);
+        assertThat(optRes).isNotEmpty();
+        Collection res = optRes.get();
         assertThat(res.getId()).isEqualTo(COLLECTION_ID);
         assertThat(res.getType()).isEqualTo("Collection");
     }
 
     @Test
     void getItem_shouldReturnItem() throws Exception {
-        Item res = this.testClient.getItem(COLLECTION_ID, ITEM_ID);
+        Optional<Item> optRes = this.testClient.getItem(COLLECTION_ID, ITEM_ID);
+        assertThat(optRes).isNotEmpty();
+        Item res = optRes.get();
         assertThat(res.getId()).isEqualTo(ITEM_ID);
         assertThat(res.getType()).isEqualTo("Feature");
     }
