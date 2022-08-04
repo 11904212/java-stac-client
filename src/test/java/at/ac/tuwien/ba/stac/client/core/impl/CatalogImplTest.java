@@ -21,7 +21,7 @@ class CatalogImplTest {
     }
 
     @Test
-    void itShouldDeserializeCatalog() throws Exception{
+    void mapCatalog_whenJsonIsValid_expectCorrectProperties() throws Exception{
         URL url = ClassLoader.getSystemResource("examples/catalog.json");
         Catalog res = mapper.readValue(url, CatalogImpl.class);
         assertThat(res.getId()).isEqualTo("examples");

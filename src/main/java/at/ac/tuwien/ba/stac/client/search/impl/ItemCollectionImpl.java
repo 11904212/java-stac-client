@@ -19,9 +19,14 @@ public class ItemCollectionImpl implements ItemCollection {
 
     @JsonCreator
     public ItemCollectionImpl(
-            @JsonProperty("type") String type,
-            @JsonProperty("features") @JsonDeserialize(contentAs = ItemImpl.class) List<Item> items,
-            @JsonProperty("links") @JsonDeserialize(contentAs = LinkImpl.class) List<Link> links
+            @JsonProperty(value = "type", required = true)
+                    String type,
+
+            @JsonProperty(value = "features", required = true) @JsonDeserialize(contentAs = ItemImpl.class)
+                    List<Item> items,
+
+            @JsonProperty("links") @JsonDeserialize(contentAs = LinkImpl.class)
+                    List<Link> links
     ) {
         this.type = type;
         this.items = items;

@@ -21,7 +21,7 @@ class CollectionImplTest {
     }
 
     @Test
-    void itShouldDeserializeCollection1() throws Exception{
+    void mapCollection_whenJsonIsValid_expectCorrectProperties() throws Exception{
         URL url = ClassLoader.getSystemResource("examples/collection.json");
         Collection res = mapper.readValue(url, CollectionImpl.class);
         assertThat(res.getId()).isEqualTo("simple-collection");

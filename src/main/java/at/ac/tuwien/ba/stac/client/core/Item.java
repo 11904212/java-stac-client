@@ -35,8 +35,6 @@ public interface Item {
 
     Optional<String> getDateTime();
 
-    //List<at.ac.tuwien.ba.Asset> getAssets();
-
     Optional<Asset> getAsset(String key);
 
 }

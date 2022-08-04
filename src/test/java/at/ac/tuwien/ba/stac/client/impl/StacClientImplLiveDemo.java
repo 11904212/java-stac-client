@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Disabled("use this only for manual testing")
-class StacClientImplTest {
+class StacClientImplLiveDemo {
 
     private static final String TEST_URL_MSPC = "https://planetarycomputer.microsoft.com/api/stac/v1/";
     private static final String TEST_URL_AWS = "https://earth-search.aws.element84.com/v0/";

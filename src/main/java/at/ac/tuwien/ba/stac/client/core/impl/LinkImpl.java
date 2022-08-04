@@ -15,8 +15,8 @@ public class LinkImpl implements Link {
 
     @JsonCreator
     public LinkImpl(
-            @JsonProperty("href") String href,
-            @JsonProperty("rel") String rel,
+            @JsonProperty(value = "href", required = true) String href,
+            @JsonProperty(value = "rel", required = true) String rel,
             @JsonProperty("type") String type,
             @JsonProperty("title") String title
     ) {

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class ProviderImpl implements Provider {
@@ -17,14 +18,14 @@ public class ProviderImpl implements Provider {
 
     @JsonCreator
     public ProviderImpl(
-            @JsonProperty("name") String name,
+            @JsonProperty(value = "name", required = true) String name,
             @JsonProperty("description")String description,
             @JsonProperty("roles")List<String> roles,
             @JsonProperty("url")String url
     ) {
         this.name = name;
         this.description = description;
-        this.roles = roles != null ? roles : Collections.emptyList();
+        this.roles = Objects.requireNonNullElse(roles, Collections.emptyList());
         this.url = url;
     }
 

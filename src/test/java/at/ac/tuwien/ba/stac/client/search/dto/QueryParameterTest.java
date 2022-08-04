@@ -14,7 +14,7 @@ import java.util.Arrays;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class QueryParameterTest {
+class QueryParameterTest {
 
     private static final String DATE_START = "2018-02-12T00:00:00Z";
     private static final String DATE_END = "2018-03-18T12:31:12Z";
@@ -28,7 +28,7 @@ public class QueryParameterTest {
     }
 
     @Test
-    public void itShouldSerializeQueryParameter1() throws Exception{
+    void serialize_whenObjectIsValid_expectCorrectJson() throws Exception{
 
         Double[] bbox = {
                 -110d,
@@ -74,7 +74,7 @@ public class QueryParameterTest {
     }
 
     @Test
-    public void itShould_SerializeSingleDateTime() throws Exception{
+    void serialize_whenSingeDateTimeIsSet_expectCorrectDatetimeFormat() throws Exception{
 
         QueryParameter parameter = new QueryParameter();
         ZonedDateTime dateTime = ZonedDateTime.parse(DATE_START, DATE_FORMATTER);
@@ -88,7 +88,7 @@ public class QueryParameterTest {
     }
 
     @Test
-    public void itShould_SerializeClosedInterval() throws Exception{
+    void serialize_whenDateTimeIsInterval_expectCorrectDatetimeFormat() throws Exception{
 
         QueryParameter parameter = new QueryParameter();
         ZonedDateTime start = ZonedDateTime.parse(DATE_START, DATE_FORMATTER);
@@ -102,7 +102,7 @@ public class QueryParameterTest {
     }
 
     @Test
-    public void itShouldFail_WhenStartAndEndNull(){
+    void setDatetimeInterval_whenStatAndEndIsNull_expectException(){
 
         QueryParameter parameter = new QueryParameter();
 
@@ -112,7 +112,7 @@ public class QueryParameterTest {
     }
 
     @Test
-    public void itShouldFail_WhenStartAfterEnd(){
+    void setDatetimeInterval_whenStatAfterEnd_expectException(){
 
         QueryParameter parameter = new QueryParameter();
         ZonedDateTime end = ZonedDateTime.parse(DATE_END, DATE_FORMATTER);
@@ -124,7 +124,7 @@ public class QueryParameterTest {
     }
 
     @Test
-    public void itShould_SerializeLeftOpenInterval() throws Exception{
+    void serialize_whenLeftOpenInterval_expectCorrectDatetimeFormat() throws Exception{
 
         QueryParameter parameter = new QueryParameter();
         ZonedDateTime end = ZonedDateTime.parse(DATE_END, DATE_FORMATTER);
@@ -137,7 +137,7 @@ public class QueryParameterTest {
     }
 
     @Test
-    public void itShould_SerializeRightOpenInterval() throws Exception{
+    void serialize_whenRightOpenInterval_expectCorrectDatetimeFormat() throws Exception{
 
         QueryParameter parameter = new QueryParameter();
         ZonedDateTime start = ZonedDateTime.parse(DATE_START, DATE_FORMATTER);
@@ -150,7 +150,7 @@ public class QueryParameterTest {
     }
 
     @Test
-    public void itShould_Serialize_Fields() throws Exception{
+    void serialize_whenFieldsIsSet_expectCorrectFieldFormat() throws Exception{
 
         QueryParameter parameter = new QueryParameter();
         QueryParamFields fields = new QueryParamFields();
