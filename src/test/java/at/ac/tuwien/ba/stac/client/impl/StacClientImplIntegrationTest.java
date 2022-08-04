@@ -131,7 +131,7 @@ class StacClientImplIntegrationTest {
         String collectionId = "sentinel";
         String featureId = "1234";
 
-        String body = readTextFromResource("examples/core-item.json");
+        String body = readTextFromResource("examples/item1.json");
         mockStacApi.enqueue(new MockResponse()
                 .setBody(body)
                 .addHeader("Content-Type", "application/json"));
@@ -159,7 +159,7 @@ class StacClientImplIntegrationTest {
         String collectionId = "sentinel";
         String featureId = "1234";
 
-        String body = readTextFromResource("examples/core-item-invalid.json");
+        String body = readTextFromResource("examples/item-invalid.json");
         mockStacApi.enqueue(new MockResponse()
                 .setBody(body)
                 .addHeader("Content-Type", "application/json"));
