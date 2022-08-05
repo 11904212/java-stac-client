@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.11904212</groupId>
+    <groupId>io.github.11904212</groupId>
     <artifactId>java-stac-client</artifactId>
     <!--
     the version number is structured as follows [stac-version]-[client-version]
