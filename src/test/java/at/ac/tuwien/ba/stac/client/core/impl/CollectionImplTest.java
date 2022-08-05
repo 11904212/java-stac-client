@@ -33,8 +33,8 @@ class CollectionImplTest {
         assertThat(res.getTitle()).contains("Simple Example Collection");
         assertThat(res.getProviders()).hasSize(1);
         assertThat(res.getProviders().get(0).getName()).isEqualTo("Remote Data, Inc");
-        assertThat(res.getExtend().getSpatial()).isNotNull();
-        assertThat(res.getExtend().getTemporal()).isNotNull();
+        assertThat(res.getExtent().getSpatial()).isNotNull();
+        assertThat(res.getExtent().getTemporal()).isNotNull();
         assertThat(res.getLicense()).isEqualTo("CC-BY-4.0");
         assertThat(res.getLinks()).hasSize(5);
         assertThat(res.getAssets()).isEmpty();

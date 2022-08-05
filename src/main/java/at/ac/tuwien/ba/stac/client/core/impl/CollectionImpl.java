@@ -129,7 +129,7 @@ public class CollectionImpl implements Collection {
     }
 
     @Override
-    public Extent getExtend() {
+    public Extent getExtent() {
         return extent;
     }
 
