@@ -13,6 +13,7 @@ import at.ac.tuwien.ba.stac.client.search.dto.QueryParameter;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -20,6 +21,7 @@ import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Optional;
 
 public class StacClientImpl implements StacClient {
 
@@ -36,16 +38,24 @@ public class StacClientImpl implements StacClient {
         return mapper.readValue(landingPage, CatalogImpl.class);
     }
 
-    public Collection getCollection(String id) throws IOException {
+    public Optional<Collection> getCollection(String id) throws IOException {
         String urlStr = this.landingPage + "collections/" + id;
         URL url = new URL(urlStr);
-        return mapper.readValue(url, CollectionImpl.class);
+        try {
+            return Optional.ofNullable(mapper.readValue(url, CollectionImpl.class));
+        } catch (FileNotFoundException e){
+            return Optional.empty();
+        }
     }
 
-    public Item getItem(String collectionId, String itemId) throws IOException {
+    public Optional<Item> getItem(String collectionId, String itemId) throws IOException {
         String urlStr = String.format("%scollections/%s/items/%s",this.landingPage, collectionId, itemId);
         URL url = new URL(urlStr);
-        return mapper.readValue(url, ItemImpl.class);
+        try {
+            return Optional.ofNullable(mapper.readValue(url, ItemImpl.class));
+        } catch (FileNotFoundException e){
+            return Optional.empty();
+        }
     }
 
     public ItemCollection search(QueryParameter parameter) throws IOException, URISyntaxException, InterruptedException {
