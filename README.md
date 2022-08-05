@@ -26,9 +26,9 @@ ItemCollection result = client.search(parameter);
 * Declare the dependency
 ```
 <dependency>
-  <groupId>com.github.11904212</groupId>
+  <groupId>io.github.11904212</groupId>
   <artifactId>java-stac-client</artifactId>
-  <version>0.2</version>
+  <version>1.0.0-alpha.0.4</version>
 </dependency>
 ```
 
