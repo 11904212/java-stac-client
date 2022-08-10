@@ -144,13 +144,13 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <com.fasterxml.jackson.core.version>2.13.2.2</com.fasterxml.jackson.core.version>
-        <mil.nga.sf.version>3.0.1</mil.nga.sf.version>
+        <com.fasterxml.jackson.core.version>2.13.3</com.fasterxml.jackson.core.version>
+        <mil.nga.sf.version>3.1.0</mil.nga.sf.version>
         <!-- testing -->
         <junit.verion>4.13.2</junit.verion>
         <org.junit.jupiter.version>5.8.2</org.junit.jupiter.version>
-        <org.assertj.version>3.22.0</org.assertj.version>
-        <mil.nga.sf.wkt.version>1.0.2</mil.nga.sf.wkt.version>
+        <org.assertj.version>3.23.1</org.assertj.version>
+        <mil.nga.sf.wkt.version>1.0.3</mil.nga.sf.wkt.version>
         <com.squareup.okhttp3.version>4.10.0</com.squareup.okhttp3.version>
     </properties>
 
