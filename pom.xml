@@ -10,7 +10,7 @@
     the version number is structured as follows [stac-version]-[client-version]
     e.g.: 1.0.0-0.4 -> Stac-Version: 1.0.0, Client-Version: 0.4
     -->
-    <version>1.0.0-alpha.0.4</version>
+    <version>1.0.0-alpha.0.5</version>
     <packaging>jar</packaging>
 
     <name>Java STAC client</name>
@@ -39,6 +39,17 @@
         <url>https://github.com/11904212/java-stac-client/tree/master</url>
     </scm>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <plugins>
             <plugin>
@@ -56,25 +67,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <!-- JUnit 5 requires Surefire version 2.22.0 or higher -->
                 <version>${maven-surefire-plugin.version}</version>
-            </plugin>
-
-            <!-- needed for deploy on GitHub -->
-            <plugin>
-                <groupId>net.nicoulaj.maven.plugins</groupId>
-                <artifactId>checksum-maven-plugin</artifactId>
-                <version>1.9</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>artifacts</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <algorithms>
-                        <algorithm>SHA-256</algorithm>
-                    </algorithms>
-                </configuration>
             </plugin>
 
             <!-- Attach source jars-->
@@ -107,34 +99,58 @@
                 </executions>
             </plugin>
 
+            <!-- deploy on sonatype -->
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>${nexus-staging-maven-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven-gpg-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <keyname>0xF005AD46</keyname>
+                            <passphraseServerId>0xF005AD46</passphraseServerId>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
     </build>
-
-    <!-- configuration for GitHub Package Hosting -->
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub 11904212 Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/11904212/java-stac-client</url>
-        </repository>
-    </distributionManagement>
 
     <properties>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.4.0</maven-javadoc-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <com.fasterxml.jackson.core.version>2.13.2.2</com.fasterxml.jackson.core.version>
-        <mil.nga.sf.version>3.0.1</mil.nga.sf.version>
+        <com.fasterxml.jackson.core.version>2.13.3</com.fasterxml.jackson.core.version>
+        <mil.nga.sf.version>3.1.0</mil.nga.sf.version>
         <!-- testing -->
         <junit.verion>4.13.2</junit.verion>
         <org.junit.jupiter.version>5.8.2</org.junit.jupiter.version>
-        <org.assertj.version>3.22.0</org.assertj.version>
-        <mil.nga.sf.wkt.version>1.0.2</mil.nga.sf.wkt.version>
+        <org.assertj.version>3.23.1</org.assertj.version>
+        <mil.nga.sf.wkt.version>1.0.3</mil.nga.sf.wkt.version>
         <com.squareup.okhttp3.version>4.10.0</com.squareup.okhttp3.version>
     </properties>
 
