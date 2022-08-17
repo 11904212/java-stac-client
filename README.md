@@ -1,7 +1,7 @@
 Java STAC client
 ==============
 
-A Java client for working with [STAC-APIs](https://github.com/radiantearth/stac-api-spec).
+A Java client for interacting with [STAC-APIs](https://github.com/radiantearth/stac-api-spec).
 The client allows to fetch various STAC objects and maps them to POJOs.
 
 
