@@ -28,7 +28,7 @@ ItemCollection result = client.search(parameter);
 <dependency>
   <groupId>io.github.11904212</groupId>
   <artifactId>java-stac-client</artifactId>
-  <version>1.0.0-alpha.0.5</version>
+  <version>1.0.0-alpha.0.6</version>
 </dependency>
 ```
 
