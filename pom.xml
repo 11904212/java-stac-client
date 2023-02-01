@@ -10,7 +10,7 @@
     the version number is structured as follows [stac-version]-[client-version]
     e.g.: 1.0.0-0.4 -> Stac-Version: 1.0.0, Client-Version: 0.4
     -->
-    <version>1.0.0-alpha.0.6</version>
+    <version>1.0.0-alpha.0.7</version>
     <packaging>jar</packaging>
 
     <name>Java STAC client</name>
