@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
@@ -25,10 +26,10 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Disabled("use this only for manual testing")
-class StacClientImplLiveDemo {
+class StacClientImplLiveTest {
 
     private static final String TEST_URL_MSPC = "https://planetarycomputer.microsoft.com/api/stac/v1/";
-    private static final String TEST_URL_AWS = "https://earth-search.aws.element84.com/v0/";
+    private static final String TEST_URL_AWS = "https://earth-search.aws.element84.com/v1/";
     private static final String COLLECTION_ID = "sentinel-2-l2a";
     private static final String ITEM_ID = "S2B_MSIL2A_20220318T080649_R078_T42XWH_20220318T120719";
     private static final String WKT_AOI =
@@ -69,23 +70,16 @@ class StacClientImplLiveDemo {
     }
 
     @Test
-    void searchItem_shouldReturnItemCollection() throws Exception {
+    void searchItem_withLimit_shouldReturnItemCollectionOfSizeLimit() throws Exception {
 
         QueryParameter queryParameter = new QueryParameter();
         queryParameter.addCollection(COLLECTION_ID);
-        queryParameter.setDatetime("2022-02-13/2022-04-15");
-
-        queryParameter.setIntersects(
-                convertWktToGeom(WKT_AOI)
-        );
-
-        queryParameter.addSortBy("datetime", SortDirection.DESC);
-        queryParameter.setLimit(2);
+        queryParameter.setLimit(7);
 
         ItemCollection res = testClient.search(queryParameter);
 
         assertThat(res.getType()).isEqualTo("FeatureCollection");
-        assertThat(res.getItems()).hasSize(2);
+        assertThat(res.getItems()).hasSize(7);
 
     }
 
@@ -112,19 +106,19 @@ class StacClientImplLiveDemo {
 
         // planetarycomputer seems to have a problem with the sorting,
         // as it returns the following list: ..., 89.252603, 9.008443, 94.83971, ...
-        // temp solution -> use other STAC-server
+        // short term solution -> use other STAC-server
+        // long term solution -> reported bug on github https://github.com/microsoft/PlanetaryComputer/issues/81
+        //
         testClient = new StacClientImpl(new URL(TEST_URL_AWS));
 
         var queryParameter = new QueryParameter();
         queryParameter.addSortBy("properties.eo:cloud_cover", SortDirection.ASC);
-        queryParameter.addCollection("sentinel-s2-l2a");
-        queryParameter.setIntersects(convertWktToGeom(WKT_AOI));
-        queryParameter.setDatetime("2022-02-13/2022-04-15");
-
+        queryParameter.addCollection("sentinel-2-l2a");
+        queryParameter.setLimit(10);
 
         ItemCollection res = testClient.search(queryParameter);
 
-        assertThat(res.getItems()).hasSizeGreaterThan(2);
+        assertThat(res.getItems()).hasSize(10);
 
         var actualCoverList = res.getItems().stream().map(
                 item -> Double.parseDouble(item.getProperties().get("eo:cloud_cover").toString())
@@ -137,8 +131,57 @@ class StacClientImplLiveDemo {
 
     }
 
+    @Test
+    void searchItem_withIntersection_shouldIntersectAoi() throws Exception {
+
+        var aoi = convertWktToGeom(WKT_AOI);
+
+        var queryParameter = new QueryParameter();
+        queryParameter.setIntersects(aoi);
+        queryParameter.setLimit(1);
+
+        ItemCollection res = testClient.search(queryParameter);
+
+        assertThat(res.getItems()).hasSize(1);
+
+        var item = res.getItems().get(0);
+
+        var envelopeItem = item.getGeometry().getGeometry().getEnvelope();
+        var envelopeAoi = aoi.getGeometry().getEnvelope();
+
+        assertThat(envelopeItem.intersects(envelopeAoi)).isTrue();
+
+    }
+
+    @Test
+    void searchItem_withDateTimeRange_shouldContainDatetime() throws Exception {
+
+        var intervalStart = ZonedDateTime.parse("2022-02-13T00:00:00.00Z");
+        var intervalEnd = ZonedDateTime.parse("2022-04-15T23:59:59.99Z");
+
+        var queryParameter = new QueryParameter();
+        queryParameter.setLimit(1);
+        queryParameter.setDatetimeInterval(intervalStart, intervalEnd);
+
+        ItemCollection res = testClient.search(queryParameter);
+
+        assertThat(res.getItems()).hasSize(1);
+
+        var item = res.getItems().get(0);
+
+        assertThat(item.getDateTime()).isNotEmpty();
+
+        var itemDateTime = ZonedDateTime.parse(item.getDateTime().get());
+
+        assertThat(itemDateTime)
+                .isAfterOrEqualTo(intervalStart)
+                .isBeforeOrEqualTo(intervalEnd);
+
+    }
+
     private Geometry convertWktToGeom(String wkt) throws IOException {
         var geom = GeometryReader.readGeometry(wkt);
         return FeatureConverter.toGeometry(geom);
     }
+
 }
