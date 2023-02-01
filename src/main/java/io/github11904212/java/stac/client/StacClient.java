@@ -7,7 +7,6 @@ import io.github11904212.java.stac.client.search.ItemCollection;
 import io.github11904212.java.stac.client.search.dto.QueryParameter;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Optional;
 
 /**
@@ -48,8 +47,7 @@ public interface StacClient {
      * @param parameter the search criteria as {@link QueryParameter}.
      * @return a {@link ItemCollection} of found items.
      * @throws IOException if an error occurs.
-     * @throws URISyntaxException if the generated search url is not valid.
      * @throws InterruptedException if the request got interrupted.
      */
-    ItemCollection search(QueryParameter parameter) throws IOException, URISyntaxException, InterruptedException;
+    ItemCollection search(QueryParameter parameter) throws IOException, InterruptedException;
 }
