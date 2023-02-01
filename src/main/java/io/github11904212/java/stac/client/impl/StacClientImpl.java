@@ -16,7 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -25,13 +24,22 @@ import java.util.Optional;
 
 public class StacClientImpl implements StacClient {
 
+    private static final String JSON_MIME_TYPE = "application/json";
+
     private final ObjectMapper mapper;
     private final URL landingPage;
+    private final HttpClient httpClient;
+    private final HttpRequest.Builder searchReqBuilder;
 
     public StacClientImpl(URL landingPage) {
         this.landingPage = landingPage;
         this.mapper = new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        this.httpClient = HttpClient.newHttpClient();
+        this.searchReqBuilder = HttpRequest.newBuilder()
+                .uri(URI.create(this.landingPage + "search"))
+                .setHeader("Content-Type", JSON_MIME_TYPE)
+                .setHeader("Accept", JSON_MIME_TYPE);
     }
 
     public Catalog getCatalog() throws IOException {
@@ -58,19 +66,12 @@ public class StacClientImpl implements StacClient {
         }
     }
 
-    public ItemCollection search(QueryParameter parameter) throws IOException, URISyntaxException, InterruptedException {
-        String urlStr = this.landingPage + "search";
-        URI uriObj = new URI(urlStr);
+    public ItemCollection search(QueryParameter parameter) throws IOException, InterruptedException {
         String body = mapper.writeValueAsString(parameter);
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(uriObj)
-                .setHeader("Content-Type", "application/json")
-                .setHeader("Accept", "application/json")
+        HttpRequest request = searchReqBuilder
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
-
-        HttpClient httpClient = HttpClient.newHttpClient();
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
