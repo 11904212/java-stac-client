@@ -52,8 +52,10 @@ public class StacClientImpl implements StacClient {
     }
 
     public Optional<Collection> getCollection(String id) throws IOException {
-        String urlStr = this.landingPage + "collections/" + id;
-        URL url = new URL(urlStr);
+        URL url = new URL(
+                this.landingPage,
+                String.format("collections/%s", id)
+        );
         try {
             return Optional.ofNullable(mapper.readValue(url, CollectionImpl.class));
         } catch (FileNotFoundException e){
@@ -62,8 +64,10 @@ public class StacClientImpl implements StacClient {
     }
 
     public Optional<Item> getItem(String collectionId, String itemId) throws IOException {
-        String urlStr = String.format("%scollections/%s/items/%s",this.landingPage, collectionId, itemId);
-        URL url = new URL(urlStr);
+        URL url = new URL(
+                this.landingPage,
+                String.format("collections/%s/items/%s", collectionId, itemId)
+        );
         try {
             return Optional.ofNullable(mapper.readValue(url, ItemImpl.class));
         } catch (FileNotFoundException e){
