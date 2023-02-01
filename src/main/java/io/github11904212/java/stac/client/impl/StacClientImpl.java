@@ -65,6 +65,8 @@ public class StacClientImpl implements StacClient {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uriObj)
+                .setHeader("Content-Type", "application/json")
+                .setHeader("Accept", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
 

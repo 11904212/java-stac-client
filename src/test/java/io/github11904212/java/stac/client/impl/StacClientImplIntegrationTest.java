@@ -243,6 +243,10 @@ class StacClientImplIntegrationTest {
                 .withFailMessage("client did not use a POST request")
                 .isEqualTo("POST");
 
+        assertThat(request.getHeader("Content-Type"))
+                .withFailMessage("client did not set correct Content-Type header")
+                .isEqualTo("application/json");
+
     }
 
     @Test
