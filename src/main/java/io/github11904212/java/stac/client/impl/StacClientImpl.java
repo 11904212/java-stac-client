@@ -31,6 +31,11 @@ public class StacClientImpl implements StacClient {
     private final HttpClient httpClient;
     private final HttpRequest.Builder searchReqBuilder;
 
+    /**
+     * creates a {@link StacClient}.
+     * @param landingPage a {@link URL} pointing to the landing page of a STAC API.
+     *                    the given URL must end with a trailing slash (../v1/).
+     */
     public StacClientImpl(URL landingPage) {
         this.landingPage = landingPage;
         this.mapper = new ObjectMapper()
